@@ -28,7 +28,6 @@ export const retrieveConnectSessionToken = async (req: Request, res: Response): 
 
 export const listAllJobs = async (req: Request, res: Response): Promise<void> => {
   const accountId = req.headers['x-account-id'];
-  console.log("backend contoller")
   
   try {
     const response = await axios.get('https://api.stackone.com/unified/ats/job_postings', { // ENV Var url, to be changed
@@ -48,7 +47,6 @@ export const listAllJobs = async (req: Request, res: Response): Promise<void> =>
 
 export const listApplications = async (req: Request, res: Response): Promise<void> => {
   const accountId = req.headers['x-account-id'];
-  console.log("backend contoller")
   
   try {
     const response = await axios.get('https://api.stackone.com/unified/ats/applications', { // ENV Var url, to be changed
