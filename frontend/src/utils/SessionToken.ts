@@ -14,7 +14,7 @@ export const retrieveConnectSessionToken = async ({ username, provider }: { user
 
   try {
     const connectSessionResponse = await fetch(
-      'http://localhost:3001/stackone/connect_session', // URL of your backend endpoint
+      'http://localhost:3001/stackone/connect_session',
       {
         method: 'POST',
         headers,
@@ -31,6 +31,6 @@ export const retrieveConnectSessionToken = async ({ username, provider }: { user
     return { token: response.token };
   } catch (error) {
     console.error('Error fetching connect session token:', error);
-    throw error; // Re-throw the error after logging it
+    throw error; 
   }
 };
