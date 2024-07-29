@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useStackOneHub } from '@stackone/react-hub';
 import { retrieveConnectSessionToken } from '../utils/SessionToken';
 
@@ -14,9 +14,11 @@ const LinkAccountButton: React.FC = () => {
     }
   }, [startConnect]);
 
-  return (  
-    <button onClick={startFlow}>Connect to your ATS provider</button>  
-  );  
+  useEffect(() => {
+    startFlow();
+  }, [startFlow]);
+
+  return null; // Since we don't need to render a button anymore
 };
 
 export default LinkAccountButton;

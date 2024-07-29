@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './index.css';  
 import LinkAccountButton from './components/LinkAccountButton';
 import ListJobsPostingsButton from './components/ListJobsPostingsButton';
 import ListApplicationsButton from './components/ListApplicationsButton';
