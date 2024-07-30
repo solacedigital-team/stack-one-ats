@@ -31,7 +31,7 @@ export const getSessionToken = async (origin_owner_id: string, origin_owner_name
                     errorResponse.message = 'Invalid request.';
                     break;
                 case 403:
-                    errorResponse.message = 'Forbidden.';
+                    errorResponse.message = 'Forbidden request.';
                     break;
                 case 412:
                     errorResponse.message = 'Precondition failed: linked account belongs to a disabled integration.';
