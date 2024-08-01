@@ -6,9 +6,8 @@ export const getJobs = async (accountId: string, next: string) => {
 
     let url: string = config.STACKONE_ATS_URL + "/jobs?page_size=25";
 
-    if (next !== null && next !== "") {
-        url.concat("next=");
-        url.concat(next);
+    if (next) {
+        url += `&next=${encodeURIComponent(next)}`;
     }
 
     try {
@@ -48,9 +47,8 @@ export const getApplications = async (accountId: string, next: string) => {
 
     let url: string = config.STACKONE_ATS_URL + "/applications?page_size=25";
 
-    if (next !== null && next !== "") {
-        url.concat("next=");
-        url.concat(next);
+    if (next) {
+        url += `&next=${encodeURIComponent(next)}`;
     }
     try {
         const response = await axios.get(url, {
