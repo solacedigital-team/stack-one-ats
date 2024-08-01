@@ -1,7 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
-import { connectStackOneSession } from '../service/sessionTokenService';
 import { listAllAccounts } from '../service/accountsService';
 
 const router = express.Router();
@@ -14,13 +13,11 @@ const isKnownError = (error: unknown): error is InvalidRequestError | ForbiddenR
         error instanceof UnhandledError;
 };
 
-router.post('/connect-session', async (req: Request, res: Response) => {
-    
-    const { origin_owner_id, origin_owner_name } = req.body;
+router.get('/accounts', async (req: Request, res: Response) => {
 
     try {
-        const sessionToken = await connectStackOneSession(origin_owner_id, origin_owner_name);
-        res.status(200).send(sessionToken);
+        const accounts = await listAllAccounts();
+        res.status(200).send(accounts);
     } catch (error: unknown) {
         if (isKnownError(error)) {
             res.status(error.status).json({ code: error.code, message: error.message });
