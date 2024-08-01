@@ -2,19 +2,13 @@ import axios from "axios";
 import config from "../config";
 import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
 
-export const getSessionToken = async (origin_owner_id: string, origin_owner_name: string) => {
+export const getAllAccounts = async () => {
 
-    let url: string = config.STACKONE_BASE_URL + "/connect_sessions";
+    let url: string = config.STACKONE_BASE_URL + "/accounts";
     try {
-        const response = await axios.post(url, {
-            expires_in: 1800,
-            multiple: false,
-            origin_owner_id: origin_owner_id,
-            origin_owner_name: origin_owner_name
-        }, {
+        const response = await axios.get(url, {
             headers: {
                 'accept': 'application/json',
-                'content-type': 'application/json',
                 'authorization': `Basic ${config.STACKONE_API_KEY}`,
             },
         });
