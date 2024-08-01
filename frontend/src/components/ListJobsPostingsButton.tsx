@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { listJobsPostings } from '../utils/listJobsPostings';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import '../resources/ManageATSContent.css';
+import { FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
 
 interface JobLocation {
   id: string;
@@ -34,47 +37,65 @@ interface Job {
 const ListJobsPostingsButton: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [visibleJobs, setVisibleJobs] = useState<number>(2);
 
   const handleFetchJobs = async () => {
     try {
       const jobsData = await listJobsPostings();
       setJobs(jobsData.data);
+      
     } catch (err) {
       console.error('Error fetching jobs:', err);
       setError('Failed to fetch jobs');
     }
   };
 
+  const handleShowMore = () => {
+    setVisibleJobs((prev) => prev + 2);
+  };
+
+  useEffect(() => {
+    handleFetchJobs();
+  }, []);
+
   return (
-    <div>
-      <button onClick={handleFetchJobs}>Fetch Jobs</button>
-      {error && <p>{error}</p>}
-      {jobs.length > 0 && (
-        <div>
-          {jobs.map((job) => (
-            <div key={job.id} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px 0' }}>
-              <h2>{job.title}</h2>
-              <p><strong>Job ID:</strong> {job.job_id}</p>
-              <p><strong>Internal:</strong> {job.internal}</p>
-              <p><strong>Status:</strong> {job.status.value}</p>
-              <p><strong>External URL:</strong> <a href={job.external_url} target="_blank" rel="noopener noreferrer">{job.external_url}</a></p>
-              <p><strong>Created At:</strong> {new Date(job.created_at).toLocaleString()}</p>
-              <p><strong>Updated At:</strong> {new Date(job.updated_at).toLocaleString()}</p>
-              <h3>Locations</h3>
-              <ul>
-                {job.locations.map((location) => (
-                  <li key={location.id}>
-                    {location.name} (ID: {location.id}, Remote ID: {location.remote_id})
-                  </li>
-                ))}
-              </ul>
-              <h3>Content</h3>
-              <div dangerouslySetInnerHTML={{ __html: job.content.html }}></div>
-            </div>
+    <div className="relative">
+    {error && <p className="text-red-500">{error}</p>}
+    {jobs.length > 0 && (
+      <>
+        <TransitionGroup className="sliding-content">
+          {jobs.slice(0, visibleJobs).map((job) => (
+            <CSSTransition key={job.id} timeout={300} classNames="slide">
+              <div className="job-card">
+                <div className="job-badge-container">
+                  <p>Created at</p>
+                  <span className="job-badge">{new Date(job.created_at).toLocaleString()}</span>
+                  <p>Updated at</p>
+                  <span className="job-badge">{new Date(job.updated_at).toLocaleString()}</span>
+                </div>
+                <h2 className="job-title">{job.title}</h2>
+                <p><strong>Job ID:</strong> {job.id}</p>
+                <p><strong>Status:</strong> {job.status.value}</p>
+                <h3 className="job-section-title">Locations</h3>
+                <ul className="job-locations">
+                  {job.locations.map((location) => (
+                    <li key={location.id}>
+                      <FaMapMarkerAlt className="location-icon" /> {location.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CSSTransition>
           ))}
-        </div>
-      )}
-    </div>
+        </TransitionGroup>
+        {visibleJobs < jobs.length && (
+          <button className="show-more-button" onClick={handleShowMore}>
+            <FaArrowRight />
+          </button>
+        )}
+      </>
+    )}
+  </div>
   );
 };
 

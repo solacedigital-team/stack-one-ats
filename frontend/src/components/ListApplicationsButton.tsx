@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { listApplications } from '../utils/listApplications';
+import { AiOutlineUser } from 'react-icons/ai';
+import { FaArrowRight } from 'react-icons/fa';
 
 interface InterviewStage {
   id: string;
@@ -46,39 +48,52 @@ const ListApplicationsButton: React.FC = () => {
     try {
       const applicationsData = await listApplications();
       setApplications(applicationsData.data);
+      console.log(applicationsData);
     } catch (err) {
       console.error('Error fetching applications:', err);
       setError('Failed to fetch applications');
     }
   };
 
+  useEffect(() => {
+    handleFetchApplications();
+  }, []);
+
   return (
     <div>
-      <button onClick={handleFetchApplications}>Fetch Applications</button>
-      {error && <p>{error}</p>}
-      {applications.length > 0 && (
-        <div>
-          {applications.map((application) => (
-            <div key={application.id} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px 0' }}>
-              <h2>Application ID: {application.id}</h2>
-              <p><strong>Candidate ID:</strong> {application.candidate_id}</p>
-              <p><strong>Job ID:</strong> {application.job_id}</p>
-              <p><strong>Interview Stage:</strong> {application.interview_stage.name}</p>
-              <p><strong>Application Status:</strong> {application.application_status.value}</p>
-              <p><strong>Created At:</strong> {new Date(application.created_at).toLocaleString()}</p>
-              <p><strong>Updated At:</strong> {new Date(application.updated_at).toLocaleString()}</p>
-              <h3>Rejected Reasons</h3>
-              <ul>
-                {application.rejected_reasons.map((reason) => (
-                  <li key={reason.id}>
-                    {reason.label} (Type: {reason.type}, Remote ID: {reason.remote_id})
-                  </li>
-                ))}
-              </ul>
+      {error && <p className="text-red-500 text-center">{error}</p>}
+      <div className="flex flex-wrap mb-4 ml-3 justify-between">
+        {applications.slice(0, 4).map((application) => (
+          <div key={application.id} className="flex flex-col items-center space-y-2 mx-2 bg-green-50 shadow-xl p-4 rounded-lg w-60">
+            <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
+              <AiOutlineUser className="text-gray-400 text-4xl" />
             </div>
-          ))}
-        </div>
-      )}
+            <div className="text-black text-sm font-medium space-y-2">
+              <div>
+                <strong>Job ID:</strong><span className="font-normal">{application.job_id}</span>
+              </div>
+              <div>
+                <strong>Candidate ID:</strong><span className="font-normal">{application.candidate_id}</span>
+
+              </div>
+              <div>
+                <strong>Applied At:</strong><span className="font-normal">{new Date(application.created_at).toLocaleString()}</span>
+              </div>
+              <div>
+                <strong>Updated At:</strong> <span className="font-normal">{new Date(application.updated_at).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button
+        className="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800 ml-4 mt-2"
+        style={{ border: '1px solid transparent' }}
+        onClick={handleFetchApplications}
+      >
+        <span>View All</span>
+        <FaArrowRight />
+      </button>
     </div>
   );
 };

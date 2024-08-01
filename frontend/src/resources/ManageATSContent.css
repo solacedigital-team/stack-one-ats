@@ -1,0 +1,100 @@
+/* Transition styles */
+.slide-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.slide-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.slide-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.relative {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sliding-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.job-card {
+  background-color: #e0f2f1; /* Very light green background */
+  color: black; /* Text color */
+  border-radius: 0.5rem; /* Slightly rounded edges */
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  width: calc(50% - 0.5rem); /* Two cards of equal size */
+  flex-shrink: 0; /* Prevent cards from shrinking */
+  position: relative;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .job-card {
+    width: calc(100% - 0.5rem); /* Full width on smaller screens */
+  }
+}
+
+.job-badge-container {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.job-badge {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.job-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.job-section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.job-locations {
+  list-style: none;
+  padding: 0;
+}
+
+.location-icon {
+  margin-right: 0.5rem;
+}
+
+.show-more-button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto;
+}
