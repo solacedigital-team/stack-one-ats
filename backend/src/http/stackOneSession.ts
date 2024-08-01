@@ -1,7 +1,6 @@
 import axios from "axios";
-import { ErrorResponse } from "../dto/errors";
 import config from "../config";
-
+import { InvalidRequestError, ForbiddenRequestError, PreconditionFailedError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
 
 export const getSessionToken = async (origin_owner_id: string, origin_owner_name: string) => {
 
@@ -22,36 +21,22 @@ export const getSessionToken = async (origin_owner_id: string, origin_owner_name
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            const errorResponse: ErrorResponse = {
-                status: error.response?.status || 500,
-                message: '',
-            };
-            switch (errorResponse.status) {
+            switch (error.response?.status) {
                 case 400:
-                    errorResponse.message = 'Invalid request.';
-                    break;
+                    throw new InvalidRequestError('Invalid request.');
                 case 403:
-                    errorResponse.message = 'Forbidden request.';
-                    break;
-                case 412:
-                    errorResponse.message = 'Precondition failed: linked account belongs to a disabled integration.';
-                    break;
+                    throw new ForbiddenRequestError('Forbidden request.');
                 case 429:
-                    errorResponse.message = 'Too many requests.';
-                    break;
+                    throw new TooManyRequestsError('Too many requests.');
                 case 500:
-                    errorResponse.message = 'Server error while executing the request.';
-                    break;
+                    throw new ServerError('Server error while executing the request.');
                 case 501:
-                    errorResponse.message = 'This functionality is not implemented.';
-                    break;
+                    throw new NotImplementedError('This functionality is not implemented.');
                 default:
-                    errorResponse.message = `Unexpected error: ${errorResponse.status}`;
-                    break;
+                    throw new UnhandledError(`Unexpected error: ${error.response?.status}`);
             }
-            throw errorResponse;
         } else {
-            throw new Error(`Unexpected error: ${error}`);
+            throw new UnhandledError(`Unexpected error: ${error}`);
         }
     }
 }
