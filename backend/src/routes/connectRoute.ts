@@ -1,5 +1,5 @@
 import express from 'express';
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
 import { connectStackOneSession } from '../service/sessionTokenService';
 
