@@ -1,9 +1,16 @@
 {
   "scripts": {
-  "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
-  "build": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
-},
+    "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+    "build": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.5",
+    "@types/react-router-dom": "^5.3.3",
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.25.1",
+    "typescript": "^5.5.4"
   }
 }
