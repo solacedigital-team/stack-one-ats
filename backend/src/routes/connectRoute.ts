@@ -1,10 +1,10 @@
 import express from 'express';
 import { Request, Response, Router } from 'express';
-import { InvalidRequestError, ForbiddenRequestError, PreconditionFailedError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
+import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
 import { connectStackOneSession } from '../service/sessionTokenService';
 
 const router = express.Router();
-const isKnownError = (error: unknown): error is InvalidRequestError | ForbiddenRequestError | PreconditionFailedError | TooManyRequestsError | ServerError | NotImplementedError | UnhandledError => {
+const isKnownError = (error: unknown): error is InvalidRequestError | ForbiddenRequestError | TooManyRequestsError | ServerError | NotImplementedError | UnhandledError => {
     return error instanceof InvalidRequestError ||
         error instanceof ForbiddenRequestError ||
         error instanceof TooManyRequestsError ||

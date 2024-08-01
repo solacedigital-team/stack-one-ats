@@ -1,14 +1,14 @@
-import { JobsList } from "../dto/jobsDto";
 import axios from "axios";
 import config from '../config';
 import { InvalidRequestError, ForbiddenRequestError, PreconditionFailedError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
 
-export const getJobs = async (accountId: string, next: string): Promise<JobsList> => {
+export const getJobs = async (accountId: string, next: string) => {
 
-    let url: string = 'https://api.stackone.com/unified/ats/jobs?page_size=25';
+    let url: string = config.STACKONE_ATS_URL + "/jobs?page_size=25";
 
     if (next !== null && next !== "") {
-        url = `${url}&next=${next}`;
+        url.concat("next=");
+        url.concat(next);
     }
 
     try {
@@ -46,7 +46,7 @@ export const getJobs = async (accountId: string, next: string): Promise<JobsList
 
 export const getApplications = async (accountId: string, next: string) => {
 
-    let url: string = 'https://api.stackone.com/unified/ats/applications?page_size=25';
+    let url: string = config.STACKONE_ATS_URL + "/applications?page_size=25";
 
     if (next !== null && next !== "") {
         url.concat("next=");
