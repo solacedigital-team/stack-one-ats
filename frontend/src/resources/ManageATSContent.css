@@ -31,8 +31,9 @@
 }
 
 .job-card {
-  background-color: #e0f2f1; /* Very light green background */
-  color: black; /* Text color */
+  background-color: #E3FFF2; /* Light green background */
+  color: #05C168; /* Text color */
+  border: 2px solid #05C168; /* Mixed solid border color */
   border-radius: 0.5rem; /* Slightly rounded edges */
   padding: 1rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
@@ -98,3 +99,12 @@
   justify-content: center;
   margin: 1rem auto;
 }
+
+.truncated-text {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Ensure text does not overflow the container */
+}
+

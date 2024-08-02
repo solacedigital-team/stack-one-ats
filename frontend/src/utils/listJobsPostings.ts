@@ -1,10 +1,10 @@
-
-export const listJobsPostings = async () => {
+// utils/listJobsPostings.ts
+export const listJobsPostings = async (accountId: string) => {
   try {
-    const response = await fetch('http://localhost:3001/stackone/job_postings', {
+    const response = await fetch('http://localhost:3001/stackone/jobs', {
       method: 'GET',
       headers: {
-        'x-account-id': '43317933327317784087' // hard coded, to be removed
+        'x-account-id': accountId
       }
     });
 

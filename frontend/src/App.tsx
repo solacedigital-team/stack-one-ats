@@ -21,8 +21,8 @@ const App: React.FC = () => {
         <div className="ml-1/7 p-6 flex-1">
           <h1 className="text-3xl font-bold mb-6">StackOne Integration</h1>
           <LinkAccountButton />
-          <ListJobsPostingsButton />
-          <ListApplicationsButton />
+          {/* The ListJobsPostingsButton should be removed from here if it's managed in ManageATSContent */}
+          {/* <ListApplicationsButton /> */}
           
           {/* ManageATSContent Component */}
           {showManageATS && <ManageATSContent />}

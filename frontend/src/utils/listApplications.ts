@@ -1,10 +1,9 @@
-
-export const listApplications = async () => {
+export const listApplications = async (accountId: string) => {
   try {
-    const response = await fetch('http://localhost:3001/stackone/list_applications', {
+    const response = await fetch('http://localhost:3001/stackone/applications', {
       method: 'GET',
       headers: {
-        'x-account-id': '43317933327317784087',  // hard coded, to be removed
+        'x-account-id': accountId // Use the passed accountId
       }
     });
 

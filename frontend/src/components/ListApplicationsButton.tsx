@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { listApplications } from '../utils/listApplications';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
+import '../resources/ManageATSContent.css'; // Adjust the path as needed
+ 
 
 interface InterviewStage {
   id: string;
@@ -40,13 +42,17 @@ interface Application {
   remote_rejected_reason_ids: string[];
 }
 
-const ListApplicationsButton: React.FC = () => {
+interface ListApplicationsButtonProps {
+  accountId: string; // Add accountId prop
+}
+
+const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ accountId }) => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const handleFetchApplications = async () => {
     try {
-      const applicationsData = await listApplications();
+      const applicationsData = await listApplications(accountId); // Pass accountId to the function
       setApplications(applicationsData.data);
       console.log(applicationsData);
     } catch (err) {
@@ -57,29 +63,40 @@ const ListApplicationsButton: React.FC = () => {
 
   useEffect(() => {
     handleFetchApplications();
-  }, []);
+  }, [accountId]); // Fetch applications when accountId changes
+
+  const truncateId = (id: string) => {
+    if (id.length > 15) {
+      return `${id.slice(0, 12)}...`;
+    }
+    return id;
+  };
 
   return (
     <div>
       {error && <p className="text-red-500 text-center">{error}</p>}
+      <h2 className="text-2xl font-bold mt-8 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>All Applications</h2>
+
       <div className="flex flex-wrap mb-4 ml-3 justify-between">
         {applications.slice(0, 4).map((application) => (
-          <div key={application.id} className="flex flex-col items-center space-y-2 mx-2 bg-green-50 shadow-xl p-4 rounded-lg w-60">
+          <div
+            key={application.id}
+            className="flex flex-col items-start space-y-2 mx-2 bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-72 min-h-[12rem]"  // Increased height with min-h-12rem
+          >
             <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
-              <AiOutlineUser className="text-gray-400 text-4xl" />
+              <AiOutlineUser className="text-[#05C168] text-4xl" />
             </div>
-            <div className="text-black text-sm font-medium space-y-2">
-              <div>
-                <strong>Job ID:</strong><span className="font-normal">{application.job_id}</span>
+            <div className="text-[#05C168] text-sm font-medium space-y-1"> {/* Adjusted text size */}
+              <div className="flex flex-col">
+                <strong>Job ID:</strong><span className="font-normal truncated-text">{truncateId(application.job_id)}</span>
               </div>
-              <div>
-                <strong>Candidate ID:</strong><span className="font-normal">{application.candidate_id}</span>
-
+              <div className="flex flex-col">
+                <strong>Candidate ID:</strong><span className="font-normal truncated-text">{truncateId(application.candidate_id)}</span>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <strong>Applied At:</strong><span className="font-normal">{new Date(application.created_at).toLocaleString()}</span>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <strong>Updated At:</strong> <span className="font-normal">{new Date(application.updated_at).toLocaleString()}</span>
               </div>
             </div>
@@ -87,8 +104,7 @@ const ListApplicationsButton: React.FC = () => {
         ))}
       </div>
       <button
-        className="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800 ml-4 mt-2"
-        style={{ border: '1px solid transparent' }}
+        className="bg-[#E3FFF2] text-[#05C168] px-4 py-2 rounded border border-[#05C168] flex items-center space-x-2 hover:bg-[#05C168] hover:text-[#FFFFFF] transition-all duration-300 ml-4 mt-2"
         onClick={handleFetchApplications}
       >
         <span>View All</span>
