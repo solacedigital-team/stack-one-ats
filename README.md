@@ -1,8 +1,8 @@
-# Recipe SaaS Application with StackOne Integration
+# Recipe ATS application with StackOne Integration
 
 This application is a demonstration of how to integrate the StackOne unified API into a SaaS application for managing multiple ATS (Applicant Tracking System) providers. It serves as a guide for developers looking to streamline their application development by leveraging StackOne's capabilities to manage services like HRIS, ATS, LMS, IAM, CRM, and Marketing.
 
-![STACKONE README](https://github.com/user-attachments/assets/fff5f9f0-95c1-453e-a690-cc96bfdaa758)
+![STACKONE-png-v2](https://github.com/user-attachments/assets/ccc11adc-d463-49af-a549-b80257aa44b4)
 
 
 ## Application Overview
@@ -18,7 +18,9 @@ This web application showcases two primary user interfaces:
 
 *   HR professionals can view posted jobs and receive applications.
 *   HRs have the flexibility to select any ATS provider to manage job postings and applications.
-*   This interface allows HR to add multiple ATS providers using a unified StackOne API. 
+*   This interface allows HR to add multiple ATS providers using a unified StackOne API.
+  
+<img width="1512" alt="ats-stackone-app" src="https://github.com/user-attachments/assets/15e3359b-3dbb-4512-8f3c-071e95624c45">
 
 ## Tech Stack
 
