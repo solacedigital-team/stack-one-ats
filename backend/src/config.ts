@@ -3,6 +3,7 @@ config();
 
 export default {
   PORT: process.env.PORT || 3001,
-  STACKONE_API_KEY: process.env.STACKONE_API_KEY,
-  STACKONE_API_URL: 'https://api.stackone.com/connect_sessions'
+  STACKONE_API_KEY: Buffer.from(process.env.STACKONE_API_KEY || "").toString('base64'),
+  STACKONE_BASE_URL: 'https://api.stackone.com',
+  STACKONE_ATS_URL: 'https://api.stackone.com/unified/ats'
 };
