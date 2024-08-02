@@ -40,12 +40,22 @@
   width: calc(50% - 0.5rem); /* Two cards of equal size */
   flex-shrink: 0; /* Prevent cards from shrinking */
   position: relative;
+  box-sizing: border-box; /* Ensures padding and border are included in width and height */
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .job-card {
-    width: calc(100% - 0.5rem); /* Full width on smaller screens */
+    width: calc(100% - 1rem); /* Full width on smaller screens */
+  }
+
+  .sliding-content {
+    flex-direction: column;
+  }
+
+  .job-badge-container {
+    position: static;
+    margin-top: 1rem;
   }
 }
 
@@ -69,6 +79,8 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  margin-right: 6rem; /* Add right margin to avoid touching the badge */
+  word-wrap: break-word; /* Ensure long titles wrap */
 }
 
 .job-section-title {
@@ -105,6 +117,5 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 100%; /* Ensure text does not overflow the container */
+  max-width: calc(100% - 6rem); /* Ensure text does not overflow the container */
 }
-

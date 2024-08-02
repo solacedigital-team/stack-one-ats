@@ -6,7 +6,7 @@ import ListJobsPostingsButton from './components/ListJobsPostingsButton';
 import ListApplicationsButton from './components/ListApplicationsButton';
 import { SidebarProvider } from './context/SidebarContext';
 import CommonSidebar from './components/CommonSidebar'; // Import the CommonSidebar component
-import ManageATSContent from './components/ManageATSContent'; // Import ManageATSContent
+import ManageATSContent from './components/ManageJobs'; // Import ManageATSContent
 
 const App: React.FC = () => {
   const [showManageATS, setShowManageATS] = useState(true);

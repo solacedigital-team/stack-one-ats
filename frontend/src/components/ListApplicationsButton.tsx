@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { listApplications } from '../utils/listApplications';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
-import '../resources/ManageATSContent.css'; // Adjust the path as needed
- 
+import '../resources/Content.css'; // Adjust the path as needed
 
 interface InterviewStage {
   id: string;
@@ -66,8 +65,8 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
   }, [accountId]); // Fetch applications when accountId changes
 
   const truncateId = (id: string) => {
-    if (id.length > 15) {
-      return `${id.slice(0, 12)}...`;
+    if (id.length > 50) {
+      return `${id.slice(0, 40)}...`;
     }
     return id;
   };
@@ -77,11 +76,11 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
       {error && <p className="text-red-500 text-center">{error}</p>}
       <h2 className="text-2xl font-bold mt-8 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>All Applications</h2>
 
-      <div className="flex flex-wrap mb-4 ml-3 justify-between">
+      <div className="flex flex-wrap mb-4 ml-3">
         {applications.slice(0, 4).map((application) => (
           <div
             key={application.id}
-            className="flex flex-col items-start space-y-2 mx-2 bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-72 min-h-[12rem]"  // Increased height with min-h-12rem
+            className="flex flex-col items-start bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-full sm:w-72 sm:mx-2 mb-4"  // Adjusted margin and width
           >
             <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
               <AiOutlineUser className="text-[#05C168] text-4xl" />

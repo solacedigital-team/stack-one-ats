@@ -11,15 +11,17 @@ const ManageATSContent: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [accounts, setAccounts] = useState<any[]>([]); // Initialize state for accounts
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null); // State for selected account ID
-  const [selectedAccountName, setSelectedAccountName] = useState<string>(''); // State for selected account name
-
+  const [selectedAccountName, setSelectedAccountName] = useState<string>('Select Account'); // State for selected account name
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
   const handleManageATSClick = () => {
+    console.log('Manage Jobs Portals clicked');
+    console.log('showLinkAccount before:', showLinkAccount);
     setShowLinkAccount(!showLinkAccount);
+    console.log('showLinkAccount after:', !showLinkAccount);
   };
 
   const fetchAccounts = async () => {
@@ -29,9 +31,8 @@ const ManageATSContent: React.FC = () => {
         setAccounts(accountsData);
         if (accountsData.length > 0) {
           setSelectedAccountId(accountsData[0].id); // Set the default account ID if there's any
-          setSelectedAccountName(accountsData[0].provider); // Set the default account name if there's any
+          setSelectedAccountName('Select Account'); // Set the default account name if there's any
         }
-        
       } else {
         throw new Error('Unexpected data format');
       }
@@ -45,7 +46,6 @@ const ManageATSContent: React.FC = () => {
     setSelectedAccountName(name); // Update the selected account name
     setShowDropdown(false); // Close dropdown on account selection
   };
-  
 
   useEffect(() => {
     fetchAccounts();
@@ -65,7 +65,7 @@ const ManageATSContent: React.FC = () => {
           <AiOutlineMail className="text-gray-600 text-3xl cursor-pointer" />
         </div>
       </div>
-    
+
       <div className="flex justify-between mb-6">
         <button
           className="bg-[#FFFFFF] text-[#05C168] border border-[#05C168] px-4 py-2 rounded shadow hover:bg-[#05C168] hover:text-[#FFFFFF] transition-all duration-300"
@@ -100,7 +100,7 @@ const ManageATSContent: React.FC = () => {
           </div>
         )}
       </div>
-    
+
       {showLinkAccount && <LinkAccountButton />}
       {selectedAccountId && <ListJobsPostingsButton accountId={selectedAccountId} />}
       {selectedAccountId && <ListApplicationsButton accountId={selectedAccountId} />}

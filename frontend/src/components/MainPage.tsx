@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CommonSidebar from '../components/CommonSidebar';
-import ManageATSContent from '../components/ManageATSContent';
+import ManageATSContent from './ManageJobs';
 
 const MainPage: React.FC = () => {
   const [showManageATS, setShowManageATS] = useState(true);

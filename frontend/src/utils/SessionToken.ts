@@ -1,4 +1,3 @@
-
 export const retrieveConnectSessionToken = async ({ username, provider }: { username: string, provider?: string }) => {
   const payload = {
     expires_in: 1800,
@@ -13,14 +12,16 @@ export const retrieveConnectSessionToken = async ({ username, provider }: { user
   };
 
   try {
-    const connectSessionResponse = await fetch(
-      'http://localhost:3001/stackone/connect_session',
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(payload),
-      },
-    );
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+    if (!apiUrl) {
+      throw new Error('API base URL is not defined in environment variables');
+    }
+
+    const connectSessionResponse = await fetch(`${apiUrl}/connect-session`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
 
     if (!connectSessionResponse.ok) {
       throw new Error(`HTTP error! status: ${connectSessionResponse.status}`);
@@ -31,6 +32,6 @@ export const retrieveConnectSessionToken = async ({ username, provider }: { user
     return { token: response.token };
   } catch (error) {
     console.error('Error fetching connect session token:', error);
-    throw error; 
+    throw error;
   }
 };

@@ -18,7 +18,8 @@ const LinkAccountButton: React.FC = () => {
     startFlow();
   }, [startFlow]);
 
-  return null; // Since we don't need to render a button anymore
+  // Explicitly returning null to conform to React.FC type
+  return null;
 };
 
 export default LinkAccountButton;

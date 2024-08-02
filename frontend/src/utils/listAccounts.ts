@@ -1,15 +1,13 @@
-export const listApplications = async (accountId: string) => {
+export const listAccounts = async () => {
   try {
     const apiUrl = process.env.REACT_APP_API_BASE_URL;
     if (!apiUrl) {
       throw new Error('API base URL is not defined in environment variables');
     }
 
-    const response = await fetch(`${apiUrl}/applications`, {
+    const response = await fetch(`${apiUrl}/accounts`, {
       method: 'GET',
-      headers: {
-        'x-account-id': accountId // Use the passed accountId
-      }
+      // Remove hardcoded 'x-account-id'
     });
 
     if (!response.ok) {
@@ -18,7 +16,7 @@ export const listApplications = async (accountId: string) => {
 
     return await response.json();
   } catch (error) {
-    console.error('Error fetching applications:', error);
+    console.error('Error fetching accounts:', error);
     throw error;
   }
 };

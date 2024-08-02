@@ -1,7 +1,11 @@
-// utils/listJobsPostings.ts
 export const listJobsPostings = async (accountId: string) => {
   try {
-    const response = await fetch('http://localhost:3001/stackone/jobs', {
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+    if (!apiUrl) {
+      throw new Error('API base URL is not defined in environment variables');
+    }
+
+    const response = await fetch(`${apiUrl}/jobs`, {
       method: 'GET',
       headers: {
         'x-account-id': accountId
