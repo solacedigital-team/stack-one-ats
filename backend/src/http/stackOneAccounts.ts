@@ -4,7 +4,7 @@ import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, Serve
 
 export const getAllAccounts = async () => {
 
-    let url: string = config.STACKONE_BASE_URL + "/accounts";
+    const url: string = config.STACKONE_BASE_URL + "/accounts";
     try {
         const response = await axios.get(url, {
             headers: {
