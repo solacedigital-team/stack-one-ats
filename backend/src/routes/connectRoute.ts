@@ -2,7 +2,6 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, ServerError, NotImplementedError, UnhandledError } from '../errors/stackoneErrors';
 import { connectStackOneSession } from '../service/sessionTokenService';
-import { listAllAccounts } from '../service/accountsService';
 
 const router = express.Router();
 const isKnownError = (error: unknown): error is InvalidRequestError | ForbiddenRequestError | TooManyRequestsError | ServerError | NotImplementedError | UnhandledError => {
@@ -30,4 +29,5 @@ router.post('/connect-session', async (req: Request, res: Response) => {
     }
 });
 
-export default router;
+
+export default router;  

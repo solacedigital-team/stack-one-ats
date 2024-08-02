@@ -4,7 +4,7 @@ import { InvalidRequestError, ForbiddenRequestError, TooManyRequestsError, Serve
 
 export const getSessionToken = async (origin_owner_id: string, origin_owner_name: string) => {
 
-    let url: string = config.STACKONE_BASE_URL + "/connect_sessions";
+    const url: string = config.STACKONE_BASE_URL + "/connect_sessions";
     try {
         const response = await axios.post(url, {
             expires_in: 1800,
