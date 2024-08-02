@@ -20,7 +20,7 @@ This web application showcases two primary user interfaces:
 *   HRs have the flexibility to select any ATS provider to manage job postings and applications.
 *   This interface allows HR to add multiple ATS providers using a unified StackOne API.
   
-<img width="1512" alt="ats-stackone-app" src="https://github.com/user-attachments/assets/15e3359b-3dbb-4512-8f3c-071e95624c45">
+![stackone-result-ss-v1](https://github.com/user-attachments/assets/90160907-c243-4c5d-a237-3dbfa6251bda)
 
 ## Tech Stack
 
@@ -63,7 +63,7 @@ npm install
 *   Navigate to the frontend directory and create a `.env` file, and add the following variable:
 
 ```
-API_END_POINT=<your-frontend-end-point>
+REACT_APP_API_BASE_URL=<your-frontend-end-point>
 ```
 *   Install dependencies:
 ```
