@@ -75,3 +75,22 @@ npm install
 npm start
 ```
 *   The application should now be running on `http://localhost:<your-frontend-end-point>`
+### Lint
+This project uses ESLint for static code analysis.
+
+Lint the project:
+```
+npx eslint .
+```
+## StackOne API Documentation
+For detailed information on the StackOne API endpoints used in this project, please refer to the official StackOne API documentation:
+
+- [Connect your Front-End via the StackOne React Hub](https://docs.stackone.com/docs/embedding-the-stackone-hub)
+- [Connect your Backend with StackOne](https://docs.stackone.com/docs/connect-your-backend-with-stackone-api)
+- [Create Connect Session](https://docs.stackone.com/reference/stackone_create_connect_session)
+- [List all Accounts Endpoint](https://docs.stackone.com/reference/stackone_list_linked_accounts)
+- [List all Applications Endpoint](https://docs.stackone.com/reference/ats_list_applications)
+- [List all Jobs Endpoint](https://docs.stackone.com/reference/ats_list_jobs)
+- [List all Job Postings Endpoint](https://docs.stackone.com/reference/ats_list_job_postings)
+- [Create an Application Endpoint](https://docs.stackone.com/reference/ats_create_application)
+
