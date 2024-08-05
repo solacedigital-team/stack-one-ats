@@ -98,3 +98,22 @@
   text-overflow: ellipsis;
   max-width: calc(100% - 6rem);
 }
+
+
+/* resources/Content.css */
+.icon-size {
+  width: 24px; /* Adjust as needed */
+  height: 24px; /* Adjust as needed */
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+.rotate1-90 {
+  transform: rotate(90deg);
+}
+.rotate {
+  transform: rotate(90deg);
+}
+
+
