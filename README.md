@@ -20,14 +20,15 @@ This web application showcases two primary user interfaces:
 *   HRs have the flexibility to select any ATS provider to manage job postings and applications.
 *   This interface allows HR to add multiple ATS providers using a unified StackOne API.
   
-<img width="1512" alt="ats-stackone-app" src="https://github.com/user-attachments/assets/15e3359b-3dbb-4512-8f3c-071e95624c45">
+![stackone-result-ss-3-v1](https://github.com/user-attachments/assets/385071ea-fe01-4a74-8129-7d199c963c15)
+![stackone-result-ss-2-v1](https://github.com/user-attachments/assets/f29621f5-5364-446c-ad04-b2e0dd9df095)
 
 ## Tech Stack
 
 *   **Frontend**: React, Tailwind CSS
 *   **Language**: typescript
 *   **Backend**: Node.js, Express
-*   **API Integration**: StackOne API
+*   **API Integration**: [StackOne API](https://docs.stackone.com/reference/getting-started-with-your-api)
 
 ## Getting Started
 
@@ -45,7 +46,7 @@ Follow these steps to set up and run the application locally:
 
 1.  **Clone the Repository**:
 ```
-git clone https://github.com/<your-username>/<repo-name>.git
+git clone https://github.com/StackOneHQ/<repo-name>.git
 ```
 2.  **Backend Setup**:
 
@@ -63,7 +64,7 @@ npm install
 *   Navigate to the frontend directory and create a `.env` file, and add the following variable:
 
 ```
-API_END_POINT=<your-frontend-end-point>
+REACT_APP_API_BASE_URL="http://localhost:3001"
 ```
 *   Install dependencies:
 ```
@@ -74,7 +75,7 @@ npm install
 ```
 npm start
 ```
-*   The application should now be running on `http://localhost:<your-frontend-end-point>`
+*   The application should now be running on `http://localhost:3000`
 ### Lint
 This project uses ESLint for static code analysis.
 
@@ -93,4 +94,102 @@ For detailed information on the StackOne API endpoints used in this project, ple
 - [List all Jobs Endpoint](https://docs.stackone.com/reference/ats_list_jobs)
 - [List all Job Postings Endpoint](https://docs.stackone.com/reference/ats_list_job_postings)
 - [Create an Application Endpoint](https://docs.stackone.com/reference/ats_create_application)
+
+## API Endpoints
+Below are the StackOne API endpoints used in this project:
+
+### Get All Accounts
+Fetches all linked accounts from the StackOne API.
+```
+export const getAllAccounts = async () => {
+    const url: string = config.STACKONE_BASE_URL + "/accounts";
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'accept': 'application/json',
+                'authorization': `Basic ${config.STACKONE_API_KEY}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        // Handle error
+    }
+}
+```
+
+### Session Token
+Creates a session token for connecting to an ATS provider.
+```
+export const getSessionToken = async (origin_owner_id: string, origin_owner_name: string) => {
+    const url: string = config.STACKONE_BASE_URL + "/connect_sessions";
+    try {
+        const response = await axios.post(url, {
+            expires_in: 1800,
+            multiple: false,
+            origin_owner_id: origin_owner_id,
+            origin_owner_name: origin_owner_name
+        }, {
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json',
+                'authorization': `Basic ${config.STACKONE_API_KEY}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        // Handle error
+    }
+}
+```
+### Get All Jobs
+Fetches all job listings from the selected ATS provider for the HR view.
+
+```
+export const getJobs = async (accountId: string, next: string) => {
+    let url: string = config.STACKONE_ATS_URL + "/jobs?page_size=25";
+
+    if (next) {
+        url += `&next=${encodeURIComponent(next)}`;
+    }
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'accept': 'application/json',
+                'x-account-id': `${accountId}`,
+                'authorization': `Basic ${config.STACKONE_API_KEY}`,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Handle error
+    }
+}
+```
+### Get All Applications
+Fetches all applications submitted to job postings for the HR view.
+```
+export const getApplications = async (accountId: string, next: string) => {
+    let url: string = config.STACKONE_ATS_URL + "/applications?page_size=25";
+
+    if (next) {
+        url += `&next=${encodeURIComponent(next)}`;
+    }
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'accept': 'application/json',
+                'x-account-id': `${accountId}`,
+                'authorization': `Basic ${config.STACKONE_API_KEY}`,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Handle error
+    }
+}
+```
+
+
 
