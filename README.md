@@ -21,6 +21,7 @@ This web application showcases two primary user interfaces:
 *   This interface allows HR to add multiple ATS providers using a unified StackOne API.
   
 ![stackone-result-ss-v1](https://github.com/user-attachments/assets/90160907-c243-4c5d-a237-3dbfa6251bda)
+![stackone-result-ss-2-v1](https://github.com/user-attachments/assets/f29621f5-5364-446c-ad04-b2e0dd9df095)
 
 ## Tech Stack
 
@@ -63,7 +64,7 @@ npm install
 *   Navigate to the frontend directory and create a `.env` file, and add the following variable:
 
 ```
-REACT_APP_API_BASE_URL=<your-frontend-end-point>
+REACT_APP_API_BASE_URL="http://localhost:3001"
 ```
 *   Install dependencies:
 ```
@@ -74,7 +75,7 @@ npm install
 ```
 npm start
 ```
-*   The application should now be running on `http://localhost:<your-frontend-end-point>`
+*   The application should now be running on `http://localhost:3000`
 ### Lint
 This project uses ESLint for static code analysis.
 
