@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useStackOneHub } from '@stackone/react-hub';
-import { retrieveConnectSessionToken } from '../utils/SessionToken';
+import { retrieveConnectSessionToken } from '../http/SessionToken';
 
 const LinkAccountButton: React.FC = () => {  
   const { startConnect } = useStackOneHub();
@@ -18,7 +18,8 @@ const LinkAccountButton: React.FC = () => {
     startFlow();
   }, [startFlow]);
 
-  return null; // Since we don't need to render a button anymore
+  // Explicitly returning null to conform to React.FC type
+  return null;
 };
 
 export default LinkAccountButton;

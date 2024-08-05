@@ -1,79 +1,104 @@
-import React, { useState } from 'react';
-import { listJobsPostings } from '../utils/listJobsPostings';
-
-interface JobLocation {
-  id: string;
-  name: string;
-  remote_id: string;
-}
+import React, { useState, useEffect } from 'react';
+import { listJobsPostings } from '../http/listJobsPostings';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import '../resources/Content.css';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 
 interface JobStatus {
   value: string;
   source_value: string;
 }
 
-interface JobContent {
-  html: string;
+interface HiringTeamMember {
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  remote_user_id: string;
 }
 
 interface Job {
   id: string;
   title: string;
-  locations: JobLocation[];
-  internal: string;
-  status: JobStatus;
-  job_id: string;
-  content: JobContent;
-  external_url: string;
-  updated_at: string;
+  job_status: JobStatus;
+  department_ids: string[];
+  location_ids: string[];
+  hiring_team: HiringTeamMember[];
+  confidential: string;
   created_at: string;
+  updated_at: string;
   remote_id: string;
-  remote_job_id: string;
 }
 
-const ListJobsPostingsButton: React.FC = () => {
+const ListJobsPostingsButton: React.FC<{ accountId: string }> = ({ accountId }) => {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [visibleJobs, setVisibleJobs] = useState<number>(2);
 
   const handleFetchJobs = async () => {
     try {
-      const jobsData = await listJobsPostings();
-      setJobs(jobsData.data);
-    } catch (err) {
-      console.error('Error fetching jobs:', err);
-      setError('Failed to fetch jobs');
+      const jobsData = await listJobsPostings(accountId);
+      if (Array.isArray(jobsData.data)) {
+        setJobs(jobsData.data);
+      }
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
     }
   };
 
+  const handleShowMore = () => {
+    setVisibleJobs(prev => Math.min(prev + 2, jobs.length));
+  };
+
+  const handleShowLess = () => {
+    setVisibleJobs(prev => Math.max(prev - 2, 2));
+  };
+
+  useEffect(() => {
+    handleFetchJobs();
+  }, [accountId]);
+
   return (
-    <div>
-      <button onClick={handleFetchJobs}>Fetch Jobs</button>
-      {error && <p>{error}</p>}
-      {jobs.length > 0 && (
-        <div>
-          {jobs.map((job) => (
-            <div key={job.id} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px 0' }}>
-              <h2>{job.title}</h2>
-              <p><strong>Job ID:</strong> {job.job_id}</p>
-              <p><strong>Internal:</strong> {job.internal}</p>
-              <p><strong>Status:</strong> {job.status.value}</p>
-              <p><strong>External URL:</strong> <a href={job.external_url} target="_blank" rel="noopener noreferrer">{job.external_url}</a></p>
-              <p><strong>Created At:</strong> {new Date(job.created_at).toLocaleString()}</p>
-              <p><strong>Updated At:</strong> {new Date(job.updated_at).toLocaleString()}</p>
-              <h3>Locations</h3>
-              <ul>
-                {job.locations.map((location) => (
-                  <li key={location.id}>
-                    {location.name} (ID: {location.id}, Remote ID: {location.remote_id})
-                  </li>
-                ))}
-              </ul>
-              <h3>Content</h3>
-              <div dangerouslySetInnerHTML={{ __html: job.content.html }}></div>
-            </div>
+    <div className="relative z-1">
+  {jobs.length === 0 ? (
+    <div className="flex items-center justify-center min-h-[200px] bg-[#E3FFF2] border-2 border-[#05C168] rounded-lg p-4 text-[#A8D5BA]">
+      <h2 className="text-xl font-bold">Jobs data is not available</h2>
+    </div>
+      ) : (
+        <TransitionGroup className="sliding-content">
+          {jobs.slice(0, visibleJobs).map((job, index) => (
+            <CSSTransition key={job.id} timeout={300} classNames="slide">
+              <div id={`job-card-${index}`} className="job-card">
+                <h2 className="job-title">{job.title}</h2>
+                <p>
+                  <strong>Job ID:</strong>{' '}
+                  <span id={`truncated-text-${index}`} className="truncated-text">
+                    {job.id}
+                  </span>
+                </p>
+                <p><strong>Status:</strong> {job.job_status.value}</p>
+                <div id={`job-badge-container-${index}`} className="job-badge-container">
+                  <p>Created at</p>
+                  <span className="job-badge">{new Date(job.created_at).toLocaleString()}</span>
+                  <p>Updated at</p>
+                  <span className="job-badge">{new Date(job.updated_at).toLocaleString()}</span>
+                </div>
+              </div>
+            </CSSTransition>
           ))}
-        </div>
+        </TransitionGroup>
       )}
+      <div className="flex justify-between mt-4">
+        {jobs.length > 0 && visibleJobs < jobs.length && (
+          <button className="show-more-button" onClick={handleShowMore}>
+            <FaArrowDown />
+          </button>
+        )}
+        {jobs.length > 0 && visibleJobs > 2 && (
+          <button className="show-more-button" onClick={handleShowLess}>
+            <FaArrowUp />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
