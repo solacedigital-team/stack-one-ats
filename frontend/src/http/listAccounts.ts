@@ -7,7 +7,6 @@ export const listAccounts = async () => {
 
     const response = await fetch(`${apiUrl}/stackone/accounts`, {
       method: 'GET',
-      // Remove hardcoded 'x-account-id'
     });
 
     if (!response.ok) {

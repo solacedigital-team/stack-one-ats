@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { listApplications } from '../http/listApplications';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
-import '../resources/Content.css'; // Adjust the path as needed
+import '../resources/Content.css';
 
 interface InterviewStage {
   id: string;
@@ -42,27 +42,24 @@ interface Application {
 }
 
 interface ListApplicationsButtonProps {
-  accountId: string; // Add accountId prop
+  accountId: string;
 }
 
 const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ accountId }) => {
   const [applications, setApplications] = useState<Application[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const handleFetchApplications = async () => {
     try {
       const applicationsData = await listApplications(accountId); 
       setApplications(applicationsData.data);
-      console.log(applicationsData);
     } catch (err) {
       console.error('Error fetching applications:', err);
-      setError('Failed to fetch applications');
     }
   };
 
   useEffect(() => {
     handleFetchApplications();
-  }, [accountId]); // Fetch applications when accountId changes
+  }, [accountId]); 
 
   const truncateId = (id: string) => {
     if (id.length > 50) {
@@ -73,7 +70,6 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
 
   return (
     <div>
-      {error && <p className="text-red-500 text-center">{error}</p>}
       <h2 className="text-2xl font-bold mt-8 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>All Applications</h2>
       {applications.length === 0 ? (
         <div className="flex items-center justify-center min-h-[200px] bg-[#E3FFF2] border-2 border-[#05C168] rounded-lg p-4 text-[#A8D5BA]">
@@ -84,12 +80,12 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
           {applications.slice(0, 4).map((application) => (
             <div
               key={application.id}
-              className="flex flex-col items-start bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-full sm:w-72 sm:mx-2 mb-4"  // Adjusted margin and width
+              className="flex flex-col items-start bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-full sm:w-72 sm:mx-2 mb-4" 
             >
               <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
                 <AiOutlineUser className="text-[#05C168] text-4xl" />
               </div>
-              <div className="text-[#05C168] text-sm font-medium space-y-1"> {/* Adjusted text size */}
+              <div className="text-[#05C168] text-sm font-medium space-y-1">
                 <div className="flex flex-col">
                   <strong>Job ID:</strong><span className="font-normal truncated-text">{truncateId(application.job_id)}</span>
                 </div>

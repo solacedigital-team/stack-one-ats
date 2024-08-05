@@ -8,7 +8,7 @@ export const listApplications = async (accountId: string) => {
     const response = await fetch(`${apiUrl}/stackone/applications`, {
       method: 'GET',
       headers: {
-        'x-account-id': accountId // Use the passed accountId
+        'x-account-id': accountId,
       }
     });
 

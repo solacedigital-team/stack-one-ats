@@ -16,7 +16,7 @@ const ManageATSContent: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
-  const [selectedAccountName, setSelectedAccountName] = useState<string>('No account available'); // Default value
+  const [selectedAccountName, setSelectedAccountName] = useState<string>('No account available');
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
