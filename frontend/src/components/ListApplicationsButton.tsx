@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { listApplications } from '../utils/listApplications';
+import { listApplications } from '../http/listApplications';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
 import '../resources/Content.css'; // Adjust the path as needed
@@ -51,7 +51,7 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
 
   const handleFetchApplications = async () => {
     try {
-      const applicationsData = await listApplications(accountId); // Pass accountId to the function
+      const applicationsData = await listApplications(accountId); 
       setApplications(applicationsData.data);
       console.log(applicationsData);
     } catch (err) {
@@ -75,33 +75,38 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
     <div>
       {error && <p className="text-red-500 text-center">{error}</p>}
       <h2 className="text-2xl font-bold mt-8 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>All Applications</h2>
-
-      <div className="flex flex-wrap mb-4 ml-3">
-        {applications.slice(0, 4).map((application) => (
-          <div
-            key={application.id}
-            className="flex flex-col items-start bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-full sm:w-72 sm:mx-2 mb-4"  // Adjusted margin and width
-          >
-            <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
-              <AiOutlineUser className="text-[#05C168] text-4xl" />
+      {applications.length === 0 ? (
+        <div className="flex items-center justify-center min-h-[200px] bg-[#E3FFF2] border-2 border-[#05C168] rounded-lg p-4 text-[#A8D5BA]">
+          <h2 className="text-xl font-bold">Applications data is not available</h2>
+        </div>
+      ) : (
+        <div className="flex flex-wrap mb-4 ml-3 justify-around">
+          {applications.slice(0, 4).map((application) => (
+            <div
+              key={application.id}
+              className="flex flex-col items-start bg-[#E3FFF2] border border-[#05C168] shadow-xl p-4 rounded-lg w-full sm:w-72 sm:mx-2 mb-4"  // Adjusted margin and width
+            >
+              <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
+                <AiOutlineUser className="text-[#05C168] text-4xl" />
+              </div>
+              <div className="text-[#05C168] text-sm font-medium space-y-1"> {/* Adjusted text size */}
+                <div className="flex flex-col">
+                  <strong>Job ID:</strong><span className="font-normal truncated-text">{truncateId(application.job_id)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <strong>Candidate ID:</strong><span className="font-normal truncated-text">{truncateId(application.candidate_id)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <strong>Applied At:</strong><span className="font-normal">{new Date(application.created_at).toLocaleString()}</span>
+                </div>
+                <div className="flex flex-col">
+                  <strong>Updated At:</strong> <span className="font-normal">{new Date(application.updated_at).toLocaleString()}</span>
+                </div>
+              </div>
             </div>
-            <div className="text-[#05C168] text-sm font-medium space-y-1"> {/* Adjusted text size */}
-              <div className="flex flex-col">
-                <strong>Job ID:</strong><span className="font-normal truncated-text">{truncateId(application.job_id)}</span>
-              </div>
-              <div className="flex flex-col">
-                <strong>Candidate ID:</strong><span className="font-normal truncated-text">{truncateId(application.candidate_id)}</span>
-              </div>
-              <div className="flex flex-col">
-                <strong>Applied At:</strong><span className="font-normal">{new Date(application.created_at).toLocaleString()}</span>
-              </div>
-              <div className="flex flex-col">
-                <strong>Updated At:</strong> <span className="font-normal">{new Date(application.updated_at).toLocaleString()}</span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       <button
         className="bg-[#E3FFF2] text-[#05C168] px-4 py-2 rounded border border-[#05C168] flex items-center space-x-2 hover:bg-[#05C168] hover:text-[#FFFFFF] transition-all duration-300 ml-4 mt-2"
         onClick={handleFetchApplications}

@@ -5,7 +5,7 @@ export const listAccounts = async () => {
       throw new Error('API base URL is not defined in environment variables');
     }
 
-    const response = await fetch(`${apiUrl}/accounts`, {
+    const response = await fetch(`${apiUrl}/stackone/accounts`, {
       method: 'GET',
       // Remove hardcoded 'x-account-id'
     });

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const retrieveConnectSessionToken = async ({ username, provider }: { username: string, provider?: string }) => {
   const payload = {
     expires_in: 1800,
@@ -17,7 +18,7 @@ export const retrieveConnectSessionToken = async ({ username, provider }: { user
       throw new Error('API base URL is not defined in environment variables');
     }
 
-    const connectSessionResponse = await fetch(`${apiUrl}/connect-session`, {
+    const connectSessionResponse = await fetch(`${apiUrl}/stackone/connect-session`, {
       method: 'POST',
       headers,
       body: JSON.stringify(payload),

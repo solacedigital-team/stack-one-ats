@@ -5,7 +5,7 @@ export const listJobsPostings = async (accountId: string) => {
       throw new Error('API base URL is not defined in environment variables');
     }
 
-    const response = await fetch(`${apiUrl}/jobs`, {
+    const response = await fetch(`${apiUrl}/stackone/jobs`, {
       method: 'GET',
       headers: {
         'x-account-id': accountId

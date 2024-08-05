@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { AiOutlineUser, AiOutlineMail, AiOutlineBell } from 'react-icons/ai';
+import { AiOutlineUser, AiOutlineBell, AiOutlineMail } from 'react-icons/ai';
 import LinkAccountButton from './LinkAccountButton';
 import ListJobsPostingsButton from './ListJobsPostingsButton';
 import ListApplicationsButton from './ListApplicationsButton';
 import Contact from './Contact';
-import { listAccounts } from '../utils/listAccounts'; // Import your function
+import { listAccounts } from '../http/listAccounts';
+
+interface Account {
+  id: string;
+  provider: string;
+}
 
 const ManageATSContent: React.FC = () => {
   const [showLinkAccount, setShowLinkAccount] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [accounts, setAccounts] = useState<any[]>([]); // Initialize state for accounts
-  const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null); // State for selected account ID
-  const [selectedAccountName, setSelectedAccountName] = useState<string>('Select Account'); // State for selected account name
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
+  const [selectedAccountName, setSelectedAccountName] = useState<string>('No account available'); // Default value
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
   const handleManageATSClick = () => {
-    console.log('Manage Jobs Portals clicked');
-    console.log('showLinkAccount before:', showLinkAccount);
     setShowLinkAccount(!showLinkAccount);
-    console.log('showLinkAccount after:', !showLinkAccount);
   };
 
   const fetchAccounts = async () => {
@@ -29,12 +31,15 @@ const ManageATSContent: React.FC = () => {
       const accountsData = await listAccounts();
       if (Array.isArray(accountsData)) {
         setAccounts(accountsData);
+
+        
         if (accountsData.length > 0) {
-          setSelectedAccountId(accountsData[0].id); // Set the default account ID if there's any
-          setSelectedAccountName('Select Account'); // Set the default account name if there's any
+          setSelectedAccountId(accountsData[0].id);
+          setSelectedAccountName(accountsData[0].provider);
+        } else {
+          setSelectedAccountId(null);
+          setSelectedAccountName('No accounts available');
         }
-      } else {
-        throw new Error('Unexpected data format');
       }
     } catch (error) {
       console.error('Error fetching accounts:', error);
@@ -42,9 +47,9 @@ const ManageATSContent: React.FC = () => {
   };
 
   const handleAccountClick = (id: string, name: string) => {
-    setSelectedAccountId(id); // Update the selected account ID
-    setSelectedAccountName(name); // Update the selected account name
-    setShowDropdown(false); // Close dropdown on account selection
+    setSelectedAccountId(id);
+    setSelectedAccountName(name);
+    setShowDropdown(false);
   };
 
   useEffect(() => {
@@ -52,10 +57,10 @@ const ManageATSContent: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-6 rounded-lg shadow-lg bg-white relative">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-6 shadow-lg bg-white relative" style={{ borderTopLeftRadius: '2.5rem', boxShadow: '0 -4px 8px -1px rgba(0, 0, 0, 0.1), 0 -2px 1px -1px rgba(0, 0, 0, 0.06)' }}>
+      <div className="flex justify-between items-center mb-2">
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
             <AiOutlineUser className="text-gray-600 text-3xl" />
           </div>
           <h1 className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>Manage Jobs</h1>
@@ -65,20 +70,19 @@ const ManageATSContent: React.FC = () => {
           <AiOutlineMail className="text-gray-600 text-3xl cursor-pointer" />
         </div>
       </div>
-
-      <div className="flex justify-between mb-6">
+      <hr />
+      <div className="flex justify-between mb-6 mt-5">
         <button
           className="bg-[#FFFFFF] text-[#05C168] border border-[#05C168] px-4 py-2 rounded shadow hover:bg-[#05C168] hover:text-[#FFFFFF] transition-all duration-300"
           onClick={handleManageATSClick}
         >
-          Manage Jobs Portals
+          Manage Jobs Portal
         </button>
-
         <button
           className="bg-[#E3FFF2] text-[#05C168] border border-[#05C168] px-4 py-2 rounded shadow hover:bg-[#05C168] hover:text-[#FFFFFF] transition-all duration-300"
           onClick={toggleDropdown}
         >
-          {selectedAccountName || 'Select Account'} {/* Display selected account name or placeholder */}
+          {selectedAccountName}
         </button>
         {showDropdown && (
           <div className="absolute right-0 mt-2 w-48 bg-white border border-[#05C168] rounded shadow-lg z-20">

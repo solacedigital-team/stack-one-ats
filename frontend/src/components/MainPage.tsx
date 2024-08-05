@@ -8,11 +8,11 @@ const MainPage: React.FC = () => {
   return (
     <div className="flex">
       <CommonSidebar showManageATS={showManageATS} setShowManageATS={setShowManageATS} />
-      <div className="flex-1 ml-1/7 p-8 bg-white">
+      <div className="flex-1 ml-1/7  bg-white">
         {showManageATS ? <ManageATSContent /> : (
           <div className="p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">Apply for Jobs</h2>
-            {/* Add content for Apply for Jobs if needed */}
+           
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { ChevronRightIcon} from '@heroicons/react/24/solid';
 
 interface SidebarProps {
   showManageATS: boolean;
@@ -8,11 +8,11 @@ interface SidebarProps {
 
 const CommonSidebar: React.FC<SidebarProps> = ({ showManageATS, setShowManageATS }) => {
   return (
-    <div className="rounded-sm text-gray-900 w-1/7 p-4 flex flex-col items-center">
+    <div className="rounded-sm text-gray-900 w-1/7 p-4 flex flex-col items-center mr-20px">
       <img src="logo.svg" alt="Logo" className="mb-4 h-16 " style={{ width: '9rem'}} />
 
 
-      {/* <div className="text-center text-xl font-bold mb-8">StackOne</div> */}
+      
 
       <div className="flex flex-col items-center space-y-4">
   <button

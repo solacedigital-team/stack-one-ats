@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useStackOneHub } from '@stackone/react-hub';
-import { retrieveConnectSessionToken } from '../utils/SessionToken';
+import { retrieveConnectSessionToken } from '../http/SessionToken';
 
 const LinkAccountButton: React.FC = () => {  
   const { startConnect } = useStackOneHub();
