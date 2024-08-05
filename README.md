@@ -1,11 +1,11 @@
-# Recipe ATS application with StackOne Integration
+# Recipe Application with StackOne ATS Integration
 
 This application is a demonstration of how to integrate the StackOne unified API into a SaaS application for managing multiple ATS (Applicant Tracking System) providers. It serves as a guide for developers looking to streamline their application development by leveraging StackOne's capabilities to manage services like HRIS, ATS, LMS, IAM, CRM, and Marketing.
 
-![STACKONE-png-v2](https://github.com/user-attachments/assets/ccc11adc-d463-49af-a549-b80257aa44b4)
+![STACKONE README](https://github.com/user-attachments/assets/f6607749-3e55-47a8-8333-aca293513600)
 
 
-## Application Overview
+## Overview
 
 This web application showcases two primary user interfaces:
 
@@ -80,6 +80,7 @@ npm start
 This project uses ESLint for static code analysis.
 
 To lint the project, follow these steps:
+
 **Frontend Linting**: Navigate to the `frontend` directory and run the following command:
 ```
 npm run lint
