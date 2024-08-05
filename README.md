@@ -50,7 +50,7 @@ git clone https://github.com/StackOneHQ/<repo-name>.git
 ```
 2.  **Backend Setup**:
 
-*  Navigate to the backend directory and create a `.env` file, and add the following variables:
+*  Navigate to the `backend` directory and create a `.env` file, and add the following variables:
 ```
 PORT=3001
 STACKONE_API_KEY="<your-stackone-api-key>"
@@ -61,7 +61,7 @@ npm install
 ```
 3.  **Frontend Setup**:
 
-*   Navigate to the frontend directory and create a `.env` file, and add the following variable:
+*   Navigate to the `frontend` directory and create a `.env` file, and add the following variable:
 
 ```
 REACT_APP_API_BASE_URL="http://localhost:3001"
@@ -79,9 +79,14 @@ npm start
 ### Lint
 This project uses ESLint for static code analysis.
 
-Lint the project:
+To lint the project, follow these steps:
+**Frontend Linting**: Navigate to the `frontend` directory and run the following command:
 ```
-npx eslint .
+npm run lint
+```
+**Backend  Linting**: Navigate to the `backend` directory and run the following command:
+```
+npm run lint
 ```
 ## StackOne API Documentation
 For detailed information on the StackOne API endpoints used in this project, please refer to the official StackOne API documentation:
@@ -96,12 +101,12 @@ For detailed information on the StackOne API endpoints used in this project, ple
 - [Create an Application Endpoint](https://docs.stackone.com/reference/ats_create_application)
 
 ## API Endpoints
-Below are the StackOne API endpoints used in this project:
+Below are the `StackOne API endpoints` used in this project:
 
 ### Get All Accounts
 Fetches all linked accounts from the StackOne API.
 ```
-export const getAllAccounts = async () => {
+const getAllAccounts = async () => {
     const url: string = config.STACKONE_BASE_URL + "/accounts";
     try {
         const response = await axios.get(url, {
@@ -120,7 +125,7 @@ export const getAllAccounts = async () => {
 ### Session Token
 Creates a session token for connecting to an ATS provider.
 ```
-export const getSessionToken = async (origin_owner_id: string, origin_owner_name: string) => {
+const getSessionToken = async (origin_owner_id: string, origin_owner_name: string) => {
     const url: string = config.STACKONE_BASE_URL + "/connect_sessions";
     try {
         const response = await axios.post(url, {
@@ -145,7 +150,7 @@ export const getSessionToken = async (origin_owner_id: string, origin_owner_name
 Fetches all job listings from the selected ATS provider for the HR view.
 
 ```
-export const getJobs = async (accountId: string, next: string) => {
+const getJobs = async (accountId: string, next: string) => {
     let url: string = config.STACKONE_ATS_URL + "/jobs?page_size=25";
 
     if (next) {
@@ -169,7 +174,7 @@ export const getJobs = async (accountId: string, next: string) => {
 ### Get All Applications
 Fetches all applications submitted to job postings for the HR view.
 ```
-export const getApplications = async (accountId: string, next: string) => {
+const getApplications = async (accountId: string, next: string) => {
     let url: string = config.STACKONE_ATS_URL + "/applications?page_size=25";
 
     if (next) {
