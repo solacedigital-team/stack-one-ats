@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { listApplications } from '../http/listApplications';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
-import '../resources/Content.css'; // Adjust the path as needed
+import '../resources/Content.css';
 
 interface InterviewStage {
   id: string;
@@ -42,7 +42,7 @@ interface Application {
 }
 
 interface ListApplicationsButtonProps {
-  accountId: string; // Add accountId prop
+  accountId: string;
 }
 
 const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ accountId }) => {
@@ -62,7 +62,7 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({ account
 
   useEffect(() => {
     handleFetchApplications();
-  }, [accountId]); // Fetch applications when accountId changes
+  }, [accountId]);
 
   const truncateId = (id: string) => {
     if (id.length > 50) {

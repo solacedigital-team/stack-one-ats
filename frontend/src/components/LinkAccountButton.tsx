@@ -17,8 +17,6 @@ const LinkAccountButton: React.FC = () => {
   useEffect(() => {
     startFlow();
   }, [startFlow]);
-
-  // Explicitly returning null to conform to React.FC type
   return null;
 };
 
