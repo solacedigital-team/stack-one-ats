@@ -1,6 +1,5 @@
 import { getJobs , getApplications } from '../http/stackOneAts';
 
-// ai
 export const listAllJobs = async (accountId: string, next: string) => {
   return await getJobs(accountId, next);
 };

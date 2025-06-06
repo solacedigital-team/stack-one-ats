@@ -3,7 +3,6 @@ import { listAllApplications, listAllJobs } from '../service/atsService';
 import { Request, Response } from 'express';
 import { handleErrorResponse } from './routesErrorHandler';
 
-// use this one as template ai
 const router = express.Router();
 
 router.get('/jobs', async (req: Request, res: Response) => {
