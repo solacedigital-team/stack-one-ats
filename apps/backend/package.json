@@ -1,0 +1,24 @@
+{
+  "name": "@repo/backend",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "npx eslint ."
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.3",
+    "@hono/zod-validator": "^0.7.0",
+    "@t3-oss/env-core": "catalog:",
+    "axios": "^1.7.2",
+    "dotenv": "catalog:",
+    "hono": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "catalog:"
+  }
+}

@@ -1,9 +1,29 @@
 {
+  "name": "stack-one-ats-hris-extension",
+  "private": true,
   "scripts": {
-    "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
-    "build": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "bunx @biomejs/biome format --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@biomejs/biome": "^1.9.4",
+    "turbo": "^2.5.4"
+  },
+  "packageManager": "bun@1.2.15",
+  "workspaces": {
+    "catalog": {
+      "@t3-oss/env-core": "^0.13.6",
+      "dotenv": "^16.4.5",
+      "hono": "^4.7.11",
+      "typescript": "^5.8.3",
+      "zod": "^3.25.55"
+    },
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ]
   }
 }

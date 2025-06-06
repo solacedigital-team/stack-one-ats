@@ -1,0 +1,22 @@
+{
+  "name": "@repo/api-client",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --emitDeclarationOnly --outDir dist --watch",
+    "build": "tsc --emitDeclarationOnly --outDir dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/backend": "workspace:*",
+    "@t3-oss/env-core": "catalog:",
+    "dotenv": "catalog:",
+    "hono": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "latest"
+  }
+}

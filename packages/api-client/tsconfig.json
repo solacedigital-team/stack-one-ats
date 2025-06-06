@@ -1,0 +1,22 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "baseUrl": ".",
+    "incremental": true,
+    "sourceMap": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}
