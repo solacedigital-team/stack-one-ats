@@ -4,7 +4,7 @@ import { AxiosError } from "./errorHandler";
 
 export const getEmployees = async (accountId: string, next: string) => {
 
-    let url: string = config.STACKONE_HRIS_URL + "/employees?page_size=25"; // Assuming STACKONE_HRIS_URL exists in config
+    let url: string = config.STACKONE_HRIS_URL + "/employees?page_size=25";
 
     if (next) {
         url += `&next=${encodeURIComponent(next)}`;
@@ -15,7 +15,7 @@ export const getEmployees = async (accountId: string, next: string) => {
             headers: {
                 'accept': 'application/json',
                 'x-account-id': `${accountId}`,
-                'authorization': `Basic ${config.STACKONE_API_KEY}`, // Assuming STACKONE_API_KEY is also used for HRIS
+                'authorization': `Basic ${config.STACKONE_API_KEY}`,
             }
         });
         return response.data;

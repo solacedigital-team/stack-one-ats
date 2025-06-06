@@ -25,8 +25,10 @@ export const getJobs = async (accountId: string, next: string) => {
 }
 
 export const getApplications = async (accountId: string, next: string) => {
+    console.log('Received request for applications');
 
     let url: string = config.STACKONE_ATS_URL + "/applications?page_size=25";
+    console.log('Constructed URL:', url);
 
     if (next) {
         url += `&next=${encodeURIComponent(next)}`;
@@ -41,6 +43,7 @@ export const getApplications = async (accountId: string, next: string) => {
         });
         return response.data;
     } catch (error) {
+        console.error('Error fetching applications:', error);
         AxiosError(error);
     }
 }
