@@ -2,6 +2,7 @@ import axios from "axios";
 import config from '../config';
 import { AxiosError } from "./errorHandler";
 
+// ai
 export const getJobs = async (accountId: string, next: string) => {
 
     let url: string = config.STACKONE_ATS_URL + "/jobs?page_size=25";
