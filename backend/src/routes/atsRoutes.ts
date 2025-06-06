@@ -25,7 +25,6 @@ router.get('/applications', async (req: Request, res: Response) => {
 
     try {
         const applications = await listAllApplications(accountId, next);
-        console.log('Applications fetched:', applications);
         res.status(200).send(applications);
     } catch (error: unknown) {
         handleErrorResponse(error, res); 

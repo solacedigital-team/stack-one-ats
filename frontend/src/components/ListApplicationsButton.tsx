@@ -1,52 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { listApplications } from "../http/listApplications";
+import { Application, Candidate, listApplications } from "../http/listApplications";
 import userIcon from "../resources/Icons/user.svg";
 import arrowUpIcon from "../resources/Icons/arrowup.svg";
 import "../resources/Content.css";
-
-interface InterviewStage {
-    id: string;
-    name: string;
-    remote_id: string;
-}
-
-interface RejectedReason {
-    id: string;
-    label: string;
-    type: string;
-    remote_id: string;
-}
-
-interface ApplicationStatus {
-    value: string;
-    source_value: string;
-}
-
-interface Candidate {
-    name: string;
-    first_name: string;
-    last_name: string;
-}
-
-interface Application {
-    id: string;
-    candidate_id: string;
-    job_id: string;
-    interview_stage: InterviewStage;
-    interview_stage_id: string;
-    rejected_reasons: RejectedReason[];
-    rejected_reason_ids: string[];
-    rejected_at: string | null;
-    application_status: ApplicationStatus;
-    created_at: string;
-    updated_at: string;
-    remote_id: string;
-    remote_candidate_id: string;
-    remote_job_id: string;
-    remote_interview_stage_id: string;
-    remote_rejected_reason_ids: string[];
-    candidate?: Candidate;
-}
 
 interface ListApplicationsButtonProps {
     accountId: string;
@@ -58,12 +14,12 @@ const ListApplicationsButton: React.FC<ListApplicationsButtonProps> = ({
     const [applications, setApplications] = useState<Application[]>([]);
 
     const handleFetchApplications = async () => {
-        try {
-            const applicationsData = await listApplications(accountId) as { data: Application[] };
-            setApplications(applicationsData.data);
-        } catch (err) {
-            console.error("Error fetching applications:", err);
+        const applicationsData = await listApplications(accountId);
+        if (!applicationsData || !applicationsData.data) {
+            console.error("Failed to fetch applications data");
+            return;
         }
+        setApplications(applicationsData.data);
     };
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import { getAtsApiUrl, errorHandler, handleResponse } from "./apiUtils";
+import { getAtsApiUrl, handleResponse } from "./apiUtils";
 
 
 export type JobStatus = {
@@ -43,6 +43,7 @@ export const listJobsPostings = async (accountId: string) => {
 
         return await handleResponse<ListJobsPostingsResponse>(response);
     } catch (error) {
-        errorHandler(error);
+        console.error("Error fetching job postings:", error);
+        return { data: [] as Job[] }; // Return an empty array in case of error
     }
 };
