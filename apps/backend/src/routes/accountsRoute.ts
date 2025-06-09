@@ -16,6 +16,18 @@ export const AccountsRoutes = new Hono()
 			return handleErrorResponse(error, c);
 		}
 	})
+    // and ofc fix this one ai!
+    .get('/:id', zValidator('param', z.object({ id: z.string().min(1) })), async (c) => {
+        try {
+            const { id } = c.req.valid('param');
+            const accounts = await listAllAccounts();
+            const account = accounts.find(acc => acc.id === id);
+            if (!account) {
+                return c.json({ error: 'Account not found' }, 404);
+            }
+            return c.json(account, 200);
+        }
+    })
 	.get(
 		"/category/:category",
 		zValidator("param", z.object({ category: z.enum(["hris", "ats"]) })),

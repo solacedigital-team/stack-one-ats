@@ -40,6 +40,8 @@ export const getAllAccounts = async () => {
 	}
 };
 
+// Here we are missing the getAccountById function that will return account ai
+
 export const getAccountMeta = async (id: string) => {
 	const url = `${config.STACKONE_BASE_URL}/accounts/${id}/meta`;
 	try {

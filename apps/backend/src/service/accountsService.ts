@@ -21,3 +21,5 @@ export const listAccountsByCategory = async (category: "hris" | "ats") => {
 		.filter((item) => item.isHris)
 		.map((item) => item.account);
 };
+
+// need a getAccountById function that will containt account + meta ai
