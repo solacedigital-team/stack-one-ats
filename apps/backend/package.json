@@ -8,6 +8,7 @@
     "lint": "npx eslint ."
   },
   "dependencies": {
+    "@repo/db": "workspace:*",
     "@hono/node-server": "^1.14.3",
     "@hono/zod-validator": "^0.7.0",
     "@t3-oss/env-core": "catalog:",

@@ -4,12 +4,14 @@ import { cors } from "hono/cors";
 import { AccountsRoutes } from "./routes/accountsRoute.js";
 import { ATSRoutes } from "./routes/atsRoutes.js";
 import { ConnectRoutes } from "./routes/connectRoute.js";
+import { DbHealthRoute } from "./routes/dbHealthRoute.js";
 import { HRISRoutes } from "./routes/hrisRoutes.js";
 
 const app = new Hono({ strict: true }).basePath("/api");
 
 export const routes = app
 	.use("*", cors())
+	.route("/db-health", DbHealthRoute)
 	.route("/session-token", ConnectRoutes)
 	.route("/accounts", AccountsRoutes)
 	.route("/ats", ATSRoutes)
