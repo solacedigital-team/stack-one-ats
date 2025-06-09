@@ -5,7 +5,7 @@ export const handleResponse = async <T>(response: Response) => {
 	return (await response.json()) as T;
 };
 
-export const errorHandler = (error: unknown) => {
+export const errorHandler = (error: unknown): never => {
 	console.error("API Error:", error);
 	throw error;
 };

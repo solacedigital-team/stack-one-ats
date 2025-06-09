@@ -1,29 +1,34 @@
 "use client";
+import { EmployeeData, AccountData } from '@repo/api-client';
 import { ArrowDownIcon } from 'lucide-react';
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { type EmployeeData, listEmployess } from "../http/listEmployees";
 
-const ListEmployeesButton: React.FC<{ accountId: string }> = ({
-    accountId,
-}) => {
-    const [employees, setEmployees] = useState<EmployeeData[]>([]);
+export default function ListEmployeesButton({
+    account,
+    employees = [],
+}: {
+    account: AccountData;
+    employees: EmployeeData[];
+}) {
+    // const [employees, setEmployees] = useState<EmployeeData[]>([]);
     const [visibleEmployees, setVisibleEmployees] = useState<number>(2);
 
-    const handleFetchEmployees = async () => {
-        if (!accountId) return;
-        const employeesData = await listEmployess(accountId);
-        if (!employeesData || !employeesData.data) {
-            console.error("No employee data found");
-            console.error(employeesData);
-            setEmployees([]);
-            return;
-        }
-        if (Array.isArray(employeesData.data)) {
-            setEmployees(employeesData.data);
-        }
-    };
+    // const handleFetchEmployees = async () => {
+    //     if (!accountId) return;
+    //     const employeesData = await listEmployess(accountId);
+    //     console.log("Fetched employees data:", employeesData);
+    //     if (!employeesData || !employeesData.data) {
+    //         console.error("No employee data found");
+    //         console.error(employeesData);
+    //         setEmployees([]);
+    //         return;
+    //     }
+    //     if (Array.isArray(employeesData.data)) {
+    //         setEmployees(employeesData.data);
+    //     }
+    // };
 
     const handleShowMore = () => {
         // If using pagination and fetching more data:
@@ -38,9 +43,9 @@ const ListEmployeesButton: React.FC<{ accountId: string }> = ({
         setVisibleEmployees((prev) => Math.max(prev - 2, 2));
     };
 
-    useEffect(() => {
-        handleFetchEmployees();
-    }, [accountId]);
+    // useEffect(() => {
+    //     handleFetchEmployees();
+    // }, [accountId]);
 
     return (
         <div className="relative z-1">
@@ -99,8 +104,11 @@ const ListEmployeesButton: React.FC<{ accountId: string }> = ({
                     </button>
                 )}
             </div>
+            <pre>
+                <code className="json-output">
+                    {JSON.stringify(account, null, 2)}
+                </code>
+            </pre>
         </div>
     );
 };
-
-export default ListEmployeesButton;
