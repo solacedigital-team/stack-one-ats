@@ -6,7 +6,9 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "bunx @biomejs/biome format --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "check-types": "turbo run check-types",
+    "db-push": "turbo db:push",
+    "db-generate": "turbo db:generate"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
