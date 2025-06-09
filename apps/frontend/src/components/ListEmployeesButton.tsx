@@ -1,8 +1,9 @@
 "use client";
 import { ArrowDownIcon } from 'lucide-react';
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { EmployeeData, listEmployess } from "../http/listEmployees";
+import { type EmployeeData, listEmployess } from "../http/listEmployees";
 
 const ListEmployeesButton: React.FC<{ accountId: string }> = ({
     accountId,

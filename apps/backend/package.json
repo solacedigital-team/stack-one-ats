@@ -5,7 +5,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "lint": "npx eslint ."
+    "lint": "bunx @biomejs/biome lint --write"
   },
   "dependencies": {
     "@repo/db": "workspace:*",
