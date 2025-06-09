@@ -1,5 +1,5 @@
-import { getEmployees } from '../http/stackOneHris.js';
+import { getEmployees } from "../http/stackOneHris.js";
 
 export const listAllEmployees = async (accountId: string, next: string) => {
-  return await getEmployees(accountId, next);
+	return await getEmployees(accountId, next);
 };

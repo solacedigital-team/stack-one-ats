@@ -14,8 +14,6 @@ export const DbHealthRoute = new Hono().get("/", async (c) => {
 			),
 		);
 
-		console.log({ result: serializedResult });
-
 		return c.json(
 			{
 				status: "ok",

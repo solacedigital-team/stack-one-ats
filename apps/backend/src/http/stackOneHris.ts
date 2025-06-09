@@ -3,7 +3,7 @@ import { config } from "../env.js";
 import { AxiosError } from "./errorHandler.js";
 
 export const getEmployees = async (accountId: string, next: string) => {
-let url = `${config.STACKONE_HRIS_URL}/employees?page_size=25`;
+	let url = `${config.STACKONE_HRIS_URL}/employees?page_size=25`;
 
 	if (next) {
 		url += `&next=${encodeURIComponent(next)}`;
