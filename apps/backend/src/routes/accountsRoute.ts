@@ -4,8 +4,10 @@ import { z } from "zod";
 import {
 	listAccountsByCategory,
 	listAllAccounts,
+	getAccountById as getAccountByIdService,
 } from "../service/accountsService.js";
 import { handleErrorResponse } from "./routesErrorHandler.js";
+import { NotFoundError } from "../errors/stackoneErrors.js";
 
 export const AccountsRoutes = new Hono()
 	.get("/", async (c) => {
@@ -16,17 +18,17 @@ export const AccountsRoutes = new Hono()
 			return handleErrorResponse(error, c);
 		}
 	})
-    // and ofc fix this one ai!
     .get('/:id', zValidator('param', z.object({ id: z.string().min(1) })), async (c) => {
         try {
             const { id } = c.req.valid('param');
-            const accounts = await listAllAccounts();
-            const account = accounts.find(acc => acc.id === id);
+            const account = await getAccountByIdService(id);
             if (!account) {
-                return c.json({ error: 'Account not found' }, 404);
+								throw new NotFoundError(`Account with id ${id} not found`);
             }
             return c.json(account, 200);
-        }
+        } catch (error: unknown) {
+						return handleErrorResponse(error, c);
+				}
     })
 	.get(
 		"/category/:category",

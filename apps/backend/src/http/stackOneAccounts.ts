@@ -40,7 +40,21 @@ export const getAllAccounts = async () => {
 	}
 };
 
-// Here we are missing the getAccountById function that will return account ai
+export const getAccountById = async (id: string) => {
+	const url = `${config.STACKONE_BASE_URL}/accounts/${id}`;
+	try {
+		const response = await axios.get<Account>(url, {
+			headers: {
+				accept: "application/json",
+				authorization: `Basic ${config.STACKONE_API_KEY}`,
+			},
+		});
+
+		return response.data;
+	} catch (error) {
+		AxiosError(error);
+	}
+};
 
 export const getAccountMeta = async (id: string) => {
 	const url = `${config.STACKONE_BASE_URL}/accounts/${id}/meta`;

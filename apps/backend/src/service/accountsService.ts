@@ -1,4 +1,4 @@
-import { getAccountMeta, getAllAccounts } from "../http/stackOneAccounts.js";
+import { getAccountMeta, getAllAccounts, getAccountById as getAccountByIdHttp } from "../http/stackOneAccounts.js";
 
 export const listAllAccounts = async () => {
 	return await getAllAccounts();
@@ -22,4 +22,11 @@ export const listAccountsByCategory = async (category: "hris" | "ats") => {
 		.map((item) => item.account);
 };
 
-// need a getAccountById function that will containt account + meta ai
+export const getAccountById = async (id: string) => {
+	const account = await getAccountByIdHttp(id);
+	if (!account) {
+		return null; // Or throw a specific error
+	}
+	const meta = await getAccountMeta(id);
+	return { ...account, meta };
+};
