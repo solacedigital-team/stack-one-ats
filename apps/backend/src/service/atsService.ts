@@ -1,9 +1,9 @@
-import { getJobs , getApplications } from '../http/stackOneAts.js';
+import { getApplications, getJobs } from "../http/stackOneAts.js";
 
 export const listAllJobs = async (accountId: string, next: string) => {
-  return await getJobs(accountId, next);
+	return await getJobs(accountId, next);
 };
 
 export const listAllApplications = async (accountId: string, next: string) => {
-  return await getApplications(accountId, next);
+	return await getApplications(accountId, next);
 };

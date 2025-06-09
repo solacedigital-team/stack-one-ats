@@ -1,6 +1,7 @@
 "use client"
 
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import type React from 'react';
+import { createContext, type ReactNode, useContext, useState } from 'react'
 
 interface SidebarContextProps {
   showManageATS: boolean;

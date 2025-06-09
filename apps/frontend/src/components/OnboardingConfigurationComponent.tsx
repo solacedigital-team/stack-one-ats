@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 const OnboardingConfigurationComponent: React.FC = () => {
   return (
