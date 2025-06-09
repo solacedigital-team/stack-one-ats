@@ -1,0 +1,17 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/client"
+  moduleFormat = "esm"
+  runtime      = "bun"
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  name  String
+}

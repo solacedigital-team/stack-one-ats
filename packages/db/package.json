@@ -1,0 +1,30 @@
+{
+  "name": "@repo/db",
+  "version": "0.0.0",
+  "main": "./src/client.ts",
+  "exports": {
+    ".": "./src/client.ts"
+  },
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "dev": "tsup src/* --watch --target=node22",
+    "format": "prisma format",
+    "prebuild": "prisma generate",
+    "predev": "prisma generate",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.9.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.15",
+    "prisma": "^6.9.0",
+    "tsup": "^8.5.0"
+  },
+  "prisma": {
+    "schema": "./prisma/schema",
+    "seed": "bun run src/seed/index.ts"
+  }
+}
