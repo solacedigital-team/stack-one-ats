@@ -6,8 +6,8 @@ datasource db {
 generator client {
   provider     = "prisma-client"
   output       = "../src/generated/client"
-  moduleFormat = "cjs"
-  runtime      = "node"
+  moduleFormat = "esm"
+  runtime      = "bun"
 }
 
 model User {
