@@ -40,6 +40,22 @@ export const getAllAccounts = async () => {
 	}
 };
 
+export const getAccountById = async (id: string) => {
+	const url = `${config.STACKONE_BASE_URL}/accounts/${id}`;
+	try {
+		const response = await axios.get<Account>(url, {
+			headers: {
+				accept: "application/json",
+				authorization: `Basic ${config.STACKONE_API_KEY}`,
+			},
+		});
+
+		return response.data;
+	} catch (error) {
+		AxiosError(error);
+	}
+};
+
 export const getAccountMeta = async (id: string) => {
 	const url = `${config.STACKONE_BASE_URL}/accounts/${id}/meta`;
 	try {
